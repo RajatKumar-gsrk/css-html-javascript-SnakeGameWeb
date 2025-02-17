@@ -1,0 +1,50 @@
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.body{
+    min-width: 100vw;
+    min-height: 100vh;
+    background-color: rgb(168, 185, 206);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameWindow{
+    width: 65vmin;
+    height: 70vmin;
+    background-color: rgb(12, 25, 91);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.scoreBar{
+    height: 5vmin;
+    display: flex;
+    align-items: center;
+    background-color: rgb(6, 13, 47);
+    border-bottom: 2px solid white;
+    border-radius: 5px 5px 0 0;
+}
+
+.score{
+    float: left;
+    color: azure;
+    padding: 20px;
+}
+
+.highScore{
+    float: right;
+    color: beige;
+    padding: 20px;
+}
+
+.gamePanel{
+    width: 100%;
+    height: 100%;
+}
