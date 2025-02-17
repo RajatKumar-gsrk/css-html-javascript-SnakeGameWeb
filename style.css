@@ -6,6 +6,7 @@
     --snake-color: rgb(0, 251, 255);
     --head-color: rgb(0, 136, 255);
     --food-color: rgb(255, 0, 85);
+    --score-bar: rgb(6, 13, 47);
 }
 
 *{
@@ -42,7 +43,7 @@
     justify-content: space-between; 
     /* push as far as it can  */
     align-items: center;
-    background-color: rgb(6, 13, 47);
+    background-color: var(--score-bar);
     border-bottom: 2px solid white;
     border-radius: 5px 5px 0 0;
 }
@@ -85,4 +86,39 @@
     align-items: center;
     font-size: 2rem;
     font-weight: 600;
+}
+
+.controls{
+    display: none;
+    justify-content: space-between;
+    background-color: var(--score-bar);
+}
+
+.controls i {
+    text-align: center;
+    color: white;
+    font-size: 1.3rem;
+    width: calc(100%/4);
+    padding: 20px 0;
+    border-right: 2px solid black;
+}
+
+@media screen and (max-width: 800px) {
+    /* makes app responsive */
+    .controls{
+        display: flex;
+    }
+
+    .gameWindow{
+        min-width: 270px;
+        min-height: 300px;
+
+        width: 90vmin;
+        height: 100vmin;
+    }
+
+    .scoreBar{
+        font-size: 1rem;
+        padding:15px 27px;
+    }
 }

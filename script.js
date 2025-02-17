@@ -1,6 +1,7 @@
 const gamePanel = document.querySelector(".gamePanel");
 const scoreBar_score = document.querySelector(".score");
 const scoreBar_highScore = document.querySelector(".highScore");
+const touchControls = document.querySelectorAll(".controls i");
 
 let gameOver = false;
 let foodX = 0, foodY = 0;
@@ -56,6 +57,10 @@ const changeDirection = (e) => {
         dy = 0;
     }
 }
+
+touchControls.forEach(key => {
+    key.addEventListener("touchend", ()=>changeDirection({key: key.dataset.key}));//calling chnagedirection on click with lambda
+});
 
 function moveSnake(){
     for(let i = snakeBody.length - 1; i > 0; i -= 1){
