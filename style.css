@@ -4,6 +4,7 @@
     --bg-color: rgb(168, 185, 206);
     --window-color:rgb(12, 25, 91);
     --snake-color: rgb(0, 251, 255);
+    --head-color: rgb(0, 136, 255);
     --food-color: rgb(255, 0, 85);
 }
 
@@ -70,4 +71,18 @@
 
 .snake{
     background-color: var(--snake-color);
+}
+
+.snake_head{
+    background-color: var(--head-color);
+}
+
+.msg{
+    font-size: large;
+    color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 600;
 }

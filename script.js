@@ -2,16 +2,25 @@ const gamePanel = document.querySelector(".gamePanel");
 const scoreBar_score = document.querySelector(".score");
 const scoreBar_highScore = document.querySelector(".highScore");
 
-
+let gameOver = false;
 let foodX = 0, foodY = 0;
 let snakeBody = []
 snakeBody.push([5, 5]);
-let dx = 0, dy = 0;
+snakeBody.push([5, 4]);
+snakeBody.push([5,3]);
+let dx = 1, dy = 0;
 let score = 0, highScore = retrieveHighScore();
 
 function generateFood(){
     foodX = Math.floor(Math.random() * 25) + 1;
     foodY = Math.floor(Math.random() * 25) + 1;
+
+    for(let i = 0; i < snakeBody.length; i += 1){
+        if(foodX === snakeBody[i][0] && foodY === snakeBody[i][1]){
+            generateFood();
+            return;
+        }
+    }
 }
 generateFood();
 
@@ -19,8 +28,13 @@ const gameLoop = () => {//anonymous function
 
         let boardUpdater = `<div class = "food" style = "grid-area: ${foodY} / ${foodX}"></div>`;//row == Y, col == X, draws food
         moveSnake();
+        checkGameOver();
+        if(gameOver){
+            return handleGameOver();
+        }
         checkFood();
-        for(let i = 0; i < snakeBody.length; i +=1){//draws snake
+        boardUpdater += `<div class = "snake_head" style = "grid-area: ${snakeBody[0][1]} / ${snakeBody[0][0]}"></div>`;
+        for(let i = 1; i < snakeBody.length; i +=1){//draws snake
             boardUpdater += `<div class = "snake" style = "grid-area: ${snakeBody[i][1]} / ${snakeBody[i][0]}"></div>`;
         }
         gamePanel.innerHTML = boardUpdater;
@@ -28,16 +42,16 @@ const gameLoop = () => {//anonymous function
 }
 
 const changeDirection = (e) => {
-    if(e.key === "ArrowUp"){
+    if(e.key === "ArrowUp" && dy != 1){
         dx = 0;
         dy = -1;
-    }else if(e.key === "ArrowDown"){
+    }else if(e.key === "ArrowDown" && dy != -1){
         dx = 0;
         dy = 1;
-    }else if(e.key === "ArrowRight"){
+    }else if(e.key === "ArrowRight" && dx != -1){
         dx = 1;
         dy = 0;
-    }else if(e.key === "ArrowLeft"){
+    }else if(e.key === "ArrowLeft" && dx != 1){
         dx = -1;
         dy = 0;
     }
@@ -55,7 +69,7 @@ function moveSnake(){
 
 const checkFood = () => {
     if(snakeBody[0][0] === foodX && snakeBody[0][1] === foodY){
-        snakeBody.push([foodX, foodY]);
+        snakeBody.push([snakeBody[snakeBody.length - 1][0], snakeBody[snakeBody.length - 1][1]]);
         generateFood();
         score += 5;
         if(score > highScore){
@@ -78,7 +92,40 @@ function saveHighScore(){
     localStorage.setItem("highScore", highScore);
 }
 
+const checkGameOver = () => {
+    if(snakeBody[0][0] <= 0 || snakeBody[0][0] > 25){
+        gameOver = true;
+        return;
+    }else if(snakeBody[0][1] <= 0|| snakeBody[0][1] > 25){
+        gameOver = true;
+        return;
+    }
 
-setInterval(gameLoop, 150);//runs loop every 150 ms
+    for(let i = 1; i < snakeBody.length; i += 1){
+        if(snakeBody[0][0] === snakeBody[i][0] && snakeBody[0][1] === snakeBody[i][1]){
+            gameOver = true;
+            return;
+        }
+    }
+}
+
+function handleGameOver(){
+    let overMsg = `<div class = "msg" style = "grid-area: 6/6/20/20">GAME OVER</div>`;
+    gamePanel.insertAdjacentHTML('beforeend', overMsg);
+
+    sleep(250).then(() => {
+        // This will execute after the delay
+        alert("Game Over press OK to RESTART...");
+        location.reload();
+    });
+    clearInterval(intervalID);
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+
+let intervalID = setInterval(gameLoop, 150);//runs loop every 150 ms
 
 document.addEventListener("keydown", changeDirection);//don't put changeDirections() as that will directly call the funtion
