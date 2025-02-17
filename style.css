@@ -1,13 +1,23 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+:root{
+    --bg-color: rgb(168, 185, 206);
+    --window-color:rgb(12, 25, 91);
+    --snake-color: rgb(0, 251, 255);
+    --food-color: rgb(255, 0, 85);
+}
+
 *{
     margin: 0;
     padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
 }
 
 .body{
     min-width: 100vw;
     min-height: 100vh;
-    background-color: rgb(168, 185, 206);
+    background-color: var(--bg-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,7 +26,7 @@
 .gameWindow{
     width: 65vmin;
     height: 70vmin;
-    background-color: rgb(12, 25, 91);
+    background-color: var(--window-color);
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -25,7 +35,11 @@
 
 .scoreBar{
     height: 5vmin;
+    font-size: 1.5rem;
+    font-weight: 700;
     display: flex;
+    justify-content: space-between; 
+    /* push as far as it can  */
     align-items: center;
     background-color: rgb(6, 13, 47);
     border-bottom: 2px solid white;
@@ -33,18 +47,27 @@
 }
 
 .score{
-    float: left;
     color: azure;
     padding: 20px;
 }
 
 .highScore{
-    float: right;
-    color: beige;
+    color: rgb(251, 251, 162);
     padding: 20px;
 }
 
 .gamePanel{
     width: 100%;
     height: 100%;
+    display: grid;
+    grid-template: repeat(25, 1fr)/repeat(25, 1fr);
+}
+
+.food{
+    background-color: var(--food-color);
+    border-radius: 5px;
+}
+
+.snake{
+    background-color: var(--snake-color);
 }
