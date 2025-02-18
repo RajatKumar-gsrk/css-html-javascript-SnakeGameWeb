@@ -59,7 +59,7 @@ const changeDirection = (e) => {
 }
 
 touchControls.forEach(key => {
-    key.addEventListener("touchend", ()=>changeDirection({key: key.dataset.key}));//calling chnagedirection on click with lambda
+    key.addEventListener("click", ()=>changeDirection({key: key.dataset.key}));//calling chnagedirection on click with lambda
 });
 
 function moveSnake(){
