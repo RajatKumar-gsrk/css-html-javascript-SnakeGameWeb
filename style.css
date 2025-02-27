@@ -89,51 +89,8 @@
     font-weight: 600;
 }
 
-.controls{
-    display: none;
-    background-color: var(--score-bar);
-}
-
-.controls i {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.5rem;
-    width: 100%;
-    padding: auto;
-
-}
-
 @media screen and (max-width: 800px) {/*breaks at about 300px needs more breakpoints to go beyond that*/
     /* makes app responsive */
-    .gameWindow{
-        width: 90vmin;
-        height: 90vmin;
-    }
-    .controls{
-        width: 90vmin;
-        height: 20vmax;
-        display: grid;
-        grid-template: repeat(2, 1fr)/repeat(3,1fr);
-    }
-
-    .fa-arrow-up-long{
-        grid-area: 1/2;
-    }
-
-    .fa-arrow-left-long{
-        grid-area: 2/1;
-    }
-
-    .fa-arrow-down-long{
-        grid-area: 2/2;
-    }
-
-    .fa-arrow-right-long{
-        grid-area: 2/3;
-    }
-
     .gameWindow{
         min-width: 270px;
         min-height: 300px;

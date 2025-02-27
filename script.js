@@ -1,7 +1,6 @@
 const gamePanel = document.querySelector(".gamePanel");
 const scoreBar_score = document.querySelector(".score");
 const scoreBar_highScore = document.querySelector(".highScore");
-const touchControls = document.querySelectorAll(".controls i");
 
 let gameOver = false;
 let foodX = 0, foodY = 0;
@@ -58,10 +57,63 @@ const changeDirection = (e) => {
     }
 }
 
-touchControls.forEach(key => {
-    key.addEventListener("click", ()=>changeDirection({key: key.dataset.key}));//calling chnagedirection on click with lambda
-});
+const changeDirectionWithTouch = (e) => {
+    if(e === "ArrowUp" && dy != 1){
+        dx = 0;
+        dy = -1;
+    }else if(e === "ArrowDown" && dy != -1){
+        dx = 0;
+        dy = 1;
+    }else if(e === "ArrowRight" && dx != -1){
+        dx = 1;
+        dy = 0;
+    }else if(e === "ArrowLeft" && dx != 1){
+        dx = -1;
+        dy = 0;
+    }
+}
 
+gamePanel.addEventListener("touchstart", handleTouchStart, null);
+let xStart = 0;
+let yStart = 0;
+
+function handleTouchStart(e){
+    xStart = e.touches[0].clientX;
+    yStart = e.touches[0].clientY;
+}
+
+gamePanel.addEventListener("touchmove", handleTouchMovement, null);
+
+const handleTouchMovement = (e)=>{
+    if(!xStart || !yStart){
+        return;
+    }
+
+    let xEnd = e.touches[0].clientX;
+    let yEnd = e.touches[0].clientY;
+
+    let xDiff = xEnd - xStart;
+    let yDiff = yEnd - yStart;
+
+    if(Math.abs(xDiff) > Math.abs(yDiff)){
+        if(xDiff > 0){
+            changeDirectionWithTouch("ArrowRight");
+        }else{
+            changeDirectionWithTouch("ArrowLeft");
+        }
+    }else{
+        if(yDiff > 0){
+            changeDirectionWithTouch("ArrowUp");
+        }else{
+            changeDirectionWithTouch("ArrowDown");
+        }
+    }
+
+    xEnd = null;
+    yEnd = null;
+    xDiff = null;
+    yDiff = null;
+}
 function moveSnake(){
     for(let i = snakeBody.length - 1; i > 0; i -= 1){
         snakeBody[i] = snakeBody[i - 1];
