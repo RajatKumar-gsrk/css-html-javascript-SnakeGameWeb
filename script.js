@@ -73,7 +73,7 @@ const changeDirectionWithTouch = (e) => {
     }
 }
 
-gamePanel.addEventListener("touchstart", handleTouchStart, null);
+//touch controls
 let xStart = 0;
 let yStart = 0;
 
@@ -81,8 +81,7 @@ function handleTouchStart(e){
     xStart = e.touches[0].clientX;
     yStart = e.touches[0].clientY;
 }
-
-gamePanel.addEventListener("touchmove", handleTouchMovement, null);
+gamePanel.addEventListener("touchstart", handleTouchStart);
 
 const handleTouchMovement = (e)=>{
     if(!xStart || !yStart){
@@ -103,9 +102,9 @@ const handleTouchMovement = (e)=>{
         }
     }else{
         if(yDiff > 0){
-            changeDirectionWithTouch("ArrowUp");
-        }else{
             changeDirectionWithTouch("ArrowDown");
+        }else{
+            changeDirectionWithTouch("ArrowUp");
         }
     }
 
@@ -114,6 +113,11 @@ const handleTouchMovement = (e)=>{
     xDiff = null;
     yDiff = null;
 }
+
+gamePanel.addEventListener("touchmove", handleTouchMovement);
+
+//touch controls end
+
 function moveSnake(){
     for(let i = snakeBody.length - 1; i > 0; i -= 1){
         snakeBody[i] = snakeBody[i - 1];
