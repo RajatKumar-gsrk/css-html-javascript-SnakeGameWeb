@@ -107,6 +107,7 @@ const handleTouchMovement = (e)=>{
         }else{
             changeDirectionWithTouch("ArrowUp");
         }
+        e.preventDefualt();
     }
 
     xEnd = null;
