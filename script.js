@@ -87,6 +87,7 @@ const handleTouchMovement = (e)=>{
     if(!xStart || !yStart){
         return;
     }
+    e.preventDefualt();
 
     let xEnd = e.touches[0].clientX;
     let yEnd = e.touches[0].clientY;
