@@ -94,7 +94,7 @@
     .gameWindow{
         min-width: 270px;
         min-height: 300px;
-
+        touch-action: none;
         width: 90vmin;
         height: 100vmin;
     }
